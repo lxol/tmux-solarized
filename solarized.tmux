@@ -29,15 +29,14 @@ setw() {
 
 main() {
   local theme
-  theme="$(get_tmux_option "@catppuccin_flavour" "solarized")"
+  theme="$(get_tmux_option "@solarized_flavour" "solarized")"
 
   # Aggregate all commands in one array
   local tmux_commands=()
 
   # NOTE: Pulling in the selected theme by the theme that's being set as local
   # variables.
-  # shellcheck source=catppuccin-frappe.tmuxtheme
-  source /dev/stdin <<<"$(sed -e "/^[^#].*=/s/^/local /" "${PLUGIN_DIR}/catppuccin-${theme}.tmuxtheme")"
+  source /dev/stdin <<<"$(sed -e "/^[^#].*=/s/^/local /" "${PLUGIN_DIR}/solarized-${theme}.tmuxtheme")"
 
   # status
   set status "on"
@@ -61,72 +60,72 @@ main() {
 
   # --------=== Statusline
 
-  # NOTE: Checking for the value of @catppuccin_window_tabs_enabled
+  # NOTE: Checking for the value of @solarized_window_tabs_enabled
   local wt_enabled
-  wt_enabled="$(get_tmux_option "@catppuccin_window_tabs_enabled" "off")"
+  wt_enabled="$(get_tmux_option "@solarized_window_tabs_enabled" "off")"
   readonly wt_enabled
 
   local powerline_theme_enabled
-  powerline_theme_enabled="$(get_tmux_option "@catppuccin_powerline_theme_enabled" "off")"
+  powerline_theme_enabled="$(get_tmux_option "@solarized_powerline_theme_enabled" "off")"
   readonly powerline_theme_enabled
 
   local powerline_icons_theme_enabled
-  powerline_icons_theme_enabled="$(get_tmux_option "@catppuccin_powerline_icons_theme_enabled" "off")"
+  powerline_icons_theme_enabled="$(get_tmux_option "@solarized_powerline_icons_theme_enabled" "off")"
   readonly powerline_icons_theme_enabled
 
   # Separators for the left status / window list
   local l_left_separator
-  l_left_separator="$(get_tmux_option "@catppuccin_l_left_separator" "")"
+  l_left_separator="$(get_tmux_option "@solarized_l_left_separator" "")"
   readonly l_left_separator
 
   local l_right_separator
-  l_right_separator="$(get_tmux_option "@catppuccin_l_right_separator" "")"
+  l_right_separator="$(get_tmux_option "@solarized_l_right_separator" "")"
   readonly l_right_separator
 
   # Separators for the right status
   local r_left_separator
-  r_left_separator="$(get_tmux_option "@catppuccin_r_left_separator" "")"
+  r_left_separator="$(get_tmux_option "@solarized_r_left_separator" "")"
   readonly r_left_separator
 
   local r_right_separator
-  r_right_separator="$(get_tmux_option "@catppuccin_r_right_separator" "")"
+  r_right_separator="$(get_tmux_option "@solarized_r_right_separator" "")"
   readonly r_right_separator
 
   local user
-  user="$(get_tmux_option "@catppuccin_user" "off")"
+  user="$(get_tmux_option "@solarized_user" "off")"
   readonly user
 
   local host
-  host="$(get_tmux_option "@catppuccin_host" "off")"
+  host="$(get_tmux_option "@solarized_host" "off")"
   readonly host
 
   local date_time
-  date_time="$(get_tmux_option "@catppuccin_date_time" "off")"
+  date_time="$(get_tmux_option "@solarized_date_time" "off")"
   readonly date_time
 
   # Icons
   local directory_icon
-  directory_icon="$(get_tmux_option "@catppuccin_directory_icon" "")"
+  directory_icon="$(get_tmux_option "@solarized_directory_icon" "")"
   readonly directory_icon
 
   local window_icon
-  window_icon="$(get_tmux_option "@catppuccin_window_icon" "")"
+  window_icon="$(get_tmux_option "@solarized_window_icon" "")"
   readonly window_icon
 
   local session_icon
-  session_icon="$(get_tmux_option "@catppuccin_session_icon" "")"
+  session_icon="$(get_tmux_option "@solarized_session_icon" "")"
   readonly session_icon
 
   local user_icon
-  user_icon="$(get_tmux_option "@catppuccin_user_icon" "")"
+  user_icon="$(get_tmux_option "@solarized_user_icon" "")"
   readonly user_icon
 
   local host_icon
-  host_icon="$(get_tmux_option "@catppuccin_host_icon" "󰒋")"
+  host_icon="$(get_tmux_option "@solarized_host_icon" "󰒋")"
   readonly host_icon
 
   local datetime_icon
-  datetime_icon="$(get_tmux_option "@catppuccin_datetime_icon" "")"
+  datetime_icon="$(get_tmux_option "@solarized_datetime_icon" "")"
   readonly datetime_icon
 
   # Source status line themes
@@ -142,7 +141,7 @@ main() {
   local window_status_format=$show_directory_in_window_status
   local window_status_current_format=$show_directory_in_window_status_current
 
-  # NOTE: With the @catppuccin_window_tabs_enabled set to on, we're going to
+  # NOTE: With the @solarized_window_tabs_enabled set to on, we're going to
   # update the right_column1 and the window_status_* variables.
   if [[ "${wt_enabled}" == "on" ]]; then
     right_column1=$show_directory
