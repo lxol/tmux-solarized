@@ -1,10 +1,6 @@
 #!/usr/bin/env bash
 PLUGIN_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-DEFAULT_STATUS_LINE_FILE=src/default.conf
-PILL_STATUS_LINE_FILE=src/pill-status-line.conf
-POWERLINE_STATUS_LINE_FILE=src/powerline-status-line.conf
-POWERLINE_ICONS_STATUS_LINE_FILE=src/powerline-icons-status-line.conf
-NO_PATCHED_FONTS_STATUS_LINE_FILE=src/no-patched-fonts-status-line.conf
+POWERLINE_ICONS_STATUS_LINE_FILE=powerline-icons-status-line.conf
 
 get_tmux_option() {
   local option value default
@@ -33,7 +29,7 @@ setw() {
 
 main() {
   local theme
-  theme="$(get_tmux_option "@catppuccin_flavour" "mocha")"
+  theme="$(get_tmux_option "@catppuccin_flavour" "solarized")"
 
   # Aggregate all commands in one array
   local tmux_commands=()
@@ -69,11 +65,7 @@ main() {
   local wt_enabled
   wt_enabled="$(get_tmux_option "@catppuccin_window_tabs_enabled" "off")"
   readonly wt_enabled
- 
-  local pill_theme_enabled
-  pill_theme_enabled="$(get_tmux_option "@catppuccin_pill_theme_enabled" "off")"
-  readonly pill_theme_enabled
-  
+
   local powerline_theme_enabled
   powerline_theme_enabled="$(get_tmux_option "@catppuccin_powerline_theme_enabled" "off")"
   readonly powerline_theme_enabled
@@ -82,11 +74,7 @@ main() {
   powerline_icons_theme_enabled="$(get_tmux_option "@catppuccin_powerline_icons_theme_enabled" "off")"
   readonly powerline_icons_theme_enabled
 
-  local no_patched_fonts_theme_enabled
-  no_patched_fonts_theme_enabled="$(get_tmux_option "@catppuccin_no_patched_fonts_theme_enabled" "off")"
-  readonly no_patched_fonts_theme_enabled
-  
-  # Separators for the left status / window list 
+  # Separators for the left status / window list
   local l_left_separator
   l_left_separator="$(get_tmux_option "@catppuccin_l_left_separator" "")"
   readonly l_left_separator
@@ -95,7 +83,7 @@ main() {
   l_right_separator="$(get_tmux_option "@catppuccin_l_right_separator" "")"
   readonly l_right_separator
 
-  # Separators for the right status 
+  # Separators for the right status
   local r_left_separator
   r_left_separator="$(get_tmux_option "@catppuccin_r_left_separator" "")"
   readonly r_left_separator
@@ -103,7 +91,7 @@ main() {
   local r_right_separator
   r_right_separator="$(get_tmux_option "@catppuccin_r_right_separator" "")"
   readonly r_right_separator
-  
+
   local user
   user="$(get_tmux_option "@catppuccin_user" "off")"
   readonly user
@@ -115,7 +103,7 @@ main() {
   local date_time
   date_time="$(get_tmux_option "@catppuccin_date_time" "off")"
   readonly date_time
- 
+
   # Icons
   local directory_icon
   directory_icon="$(get_tmux_option "@catppuccin_directory_icon" "")"
@@ -142,28 +130,7 @@ main() {
   readonly datetime_icon
 
   # Source status line themes
-  if [[ "${pill_theme_enabled}" == "off" ]] &&
-    [[ "${powerline_theme_enabled}"  == "off" ]] && 
-    [[ "${powerline_icons_theme_enabled}" == "off" ]] &&
-    [[ "${no_patched_fonts_theme_enabled}" == "off" ]]; then
-    source "$PLUGIN_DIR/$DEFAULT_STATUS_LINE_FILE"
-  fi
-
-  if [[ "${pill_theme_enabled}" == "on" ]]; then
-    source "$PLUGIN_DIR/$PILL_STATUS_LINE_FILE"
-  fi
-
-  if [[ "${powerline_theme_enabled}" == "on" ]]; then
-    source "$PLUGIN_DIR/$POWERLINE_STATUS_LINE_FILE"
-  fi
-
-  if [[ "${powerline_icons_theme_enabled}" == "on" ]]; then
-    source "$PLUGIN_DIR/$POWERLINE_ICONS_STATUS_LINE_FILE"
-  fi
-
-  if [[ "${no_patched_fonts_theme_enabled}" == "on" ]]; then
-    source "$PLUGIN_DIR/$NO_PATCHED_FONTS_STATUS_LINE_FILE"
-  fi
+  source "$PLUGIN_DIR/$POWERLINE_ICONS_STATUS_LINE_FILE"
 
   # Right column 1 by default shows the Window name.
   local right_column1=$show_window
